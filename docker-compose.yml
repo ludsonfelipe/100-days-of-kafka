@@ -1,0 +1,19 @@
+version: '3'
+services:
+  zookeeper:
+    container_name: zookeeper100d
+    image: quay.io/debezium/zookeeper:2.3.4.Final
+    ports:
+     - 2181:2181
+     - 2888:2888
+     - 3888:3888
+  
+  kafka:
+    container_name: kafka100d
+    image: quay.io/debezium/kafka:2.3.4.Final
+    ports:
+     - 9092:9092
+    links:
+     - zookeeper
+    environment:
+     - ZOOKEEPER_CONNECT=zookeeper:2181
